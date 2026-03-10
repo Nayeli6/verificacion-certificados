@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Verificación de Certificados de Bachillerato</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --primary: #0f4c81;
+      --secondary: #1f7a8c;
+      --accent: #2ea3a0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #dbe4ee;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 860px;
+      line-height: 1.5;
+      font-size: 1rem;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 28px auto;
+      padding: 0 18px 30px;
+    }
+
+    .notice {
+      background: #eef6ff;
+      border-left: 5px solid var(--primary);
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .search {
+      flex: 1 1 320px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: white;
+    }
+
+    .tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .tag:hover, .tag.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 20px rgba(15, 76, 129, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e7f7f5;
+      color: #0f766e;
+      font-size: 0.82rem;
+      font-weight: bold;
+      width: fit-content;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.5;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 0.94rem;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0b3b65;
+    }
+
+    .btn-light {
+      background: #f8fafc;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-light:hover {
+      background: #eef2f7;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+      header h1 { font-size: 1.6rem; }
+      .container { padding: 0 14px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Portal de Verificación de Certificados de Bachillerato</h1>
+    <p>
+      Página de apoyo para Servicios Escolares, Admisiones y Control Escolar. Reúne accesos directos a portales oficiales de consulta y validación de documentos académicos de nivel medio superior.
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="notice">
+      <strong>Uso recomendado:</strong> confirma siempre que la consulta se realice en un portal oficial institucional o gubernamental. Este portal solo centraliza accesos; la validación final depende del sistema oficial de cada institución.
+    </section>
+
+    <section class="toolbar">
+      <input type="text" id="searchInput" class="search" placeholder="Buscar por institución, sistema o tipo de certificado..." />
+      <button class="tag active" data-filter="todos">Todos</button>
+      <button class="tag" data-filter="federal">Federal</button>
+      <button class="tag" data-filter="estatal">Estatal</button>
+      <button class="tag" data-filter="subsistema">Subsistema</button>
+    </section>
+
+    <section class="grid" id="cardsGrid">
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">SEP / SIGED</span>
+        <h3>Validación de documentos académicos electrónicos</h3>
+        <p>Consulta oficial para validar certificados y documentos académicos electrónicos mediante folio.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://siged.sep.gob.mx/SIGED/documentos.html" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+          <a class="btn btn-light" href="https://www.siged.sep.gob.mx/certificados/index.html" target="_blank" rel="noopener noreferrer">Consulta adicional</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">Prepa en Línea-SEP</span>
+        <h3>Certificado electrónico</h3>
+        <p>Portal informativo oficial desde donde se dirige a la verificación del certificado de Prepa en Línea-SEP.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://prepaenlinea.sep.gob.mx/nuestro-programa/certificado-electronico/" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">DGB / PACE</span>
+        <h3>Consulta de certificados del bachillerato</h3>
+        <p>Sitio oficial para búsqueda por folio o CURP en el sistema de certificados de bachillerato administrado por la SEP.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://www.pace.sep.gob.mx/certificadosdgb/certificadoremesadetalles?find=ByIdAlumnoEquals&form=" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">Colegio de Bachilleres</span>
+        <h3>Consulta de certificados - SiiAA</h3>
+        <p>Consulta oficial de certificados emitidos por el Colegio de Bachilleres.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://siiaa.cbachilleres.edu.mx/certificados/" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+          <a class="btn btn-light" href="https://www.gob.mx/bachilleres" target="_blank" rel="noopener noreferrer">Sitio institucional</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">CONALEP</span>
+        <h3>Consulta de acreditaciones</h3>
+        <p>Portal oficial de consulta de acreditaciones del sistema CONALEP. En algunos certificados digitales, la verificación también redirige a SIGED.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://web.conalep.edu.mx/capacitacion/website/validador" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+          <a class="btn btn-light" href="https://www.conalep.edu.mx/" target="_blank" rel="noopener noreferrer">Sitio institucional</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="federal subsistema">
+        <span class="badge">INEA</span>
+        <h3>Validación de certificado</h3>
+        <p>Validación oficial de certificados emitidos por el INEA mediante número de folio.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://certificacion.inea.gob.mx/validaCertificado.aspx" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="estatal">
+        <span class="badge">Edomex</span>
+        <h3>Validación de certificados</h3>
+        <p>Portal oficial del Estado de México para validar certificados por folio o número de certificado.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://www.edomex.gob.mx/cert/validacion/index.aspx" target="_blank" rel="noopener noreferrer">Abrir portal</a>
+        </div>
+      </article>
+
+      <article class="card" data-category="subsistema">
+        <span class="badge">Espacio para crecer</span>
+        <h3>Agregar más instituciones</h3>
+        <p>Puedes duplicar una tarjeta como esta para incluir UNAM, IPN, CECyTE, COBACH estatales o cualquier subsistema que maneje validación propia.</p>
+        <div class="actions">
+          <a class="btn btn-light" href="#" onclick="alert('Edita el archivo HTML para agregar más instituciones oficiales.'); return false;">Cómo editar</a>
+        </div>
+      </article>
+    </section>
+
+    <div class="empty" id="emptyState">No se encontraron resultados con esa búsqueda.</div>
+
+    <footer>
+      Diseñado como apoyo interno para revisión documental en Servicios Escolares y Admisiones.
+    </footer>
+  </main>
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const tags = Array.from(document.querySelectorAll('.tag'));
+    const emptyState = document.getElementById('emptyState');
+    let activeFilter = 'todos';
+
+    function filterCards() {
+      const term = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const categories = card.dataset.category || '';
+        const matchesText = text.includes(term);
+        const matchesFilter = activeFilter === 'todos' || categories.includes(activeFilter);
+        const show = matchesText && matchesFilter;
+        card.style.display = show ? 'flex' : 'none';
+        if (show) visibleCount++;
+      });
+
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    searchInput.addEventListener('input', filterCards);
+
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        activeFilter = tag.dataset.filter;
+        filterCards();
+      });
+    });
+
+    filterCards();
+  </script>
+</body>
+</html>
